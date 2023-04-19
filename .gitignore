@@ -1,6 +1,5 @@
 pyvenv.cfg
 .idea
-bin
 lib
 windcockpit/__pycache__/
 winduniverse/__pycache__/
