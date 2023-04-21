@@ -23,4 +23,4 @@ class Session(models.Model):
     duration = models.IntegerField
 
     def __str__(self):
-        return f'{self.sport} {self.date}'
+        return f'{self.sport}, {self.date}'
