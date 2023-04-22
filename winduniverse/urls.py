@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("windcockpit/", include("windcockpit.urls")),
+    path("wp/", include("windcockpit.urls")),
     path('admin/', admin.site.urls),
 ]
