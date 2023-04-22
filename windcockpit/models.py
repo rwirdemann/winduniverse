@@ -14,13 +14,13 @@ class Session(models.Model):
     spot = models.ForeignKey(Spot, on_delete=models.RESTRICT)
 
     # distance in meter
-    distance = models.FloatField
+    distance = models.FloatField(default=0)
 
     # max speed in m/s
-    max_speed = models.FloatField
+    max_speed = models.FloatField(default=0)
 
     # duration in minutes
-    duration = models.IntegerField
+    duration = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.sport}, {self.date}'

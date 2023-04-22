@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-
+from rest_framework import viewsets
+from rest_framework import permissions
 from windcockpit.models import Session
+from windcockpit.serializiers import SessionSerializer
 
 
 def index(request):
@@ -15,3 +17,12 @@ def sessions(request):
 
 def session(request, session_id):
     return HttpResponse("You're looking at session %s" % session_id)
+
+
+class SessionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Session.objects.all().order_by('-date')
+    serializer_class = SessionSerializer
+    permission_classes = [permissions.AllowAny]

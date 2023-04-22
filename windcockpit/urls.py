@@ -1,9 +1,14 @@
-from django.urls import path
-
+from django.urls import include, path
+from rest_framework import routers
 from . import views
+
+router = routers.DefaultRouter()
+router.register(r'sessions', views.SessionViewSet)
 
 urlpatterns = [
     path("", views.index, name="index"),
     path("sessions/", views.sessions, name="sessions"),
-    path("session/<int:session_id>/", views.session, name="session")
+    path("session/<int:session_id>/", views.session, name="session"),
+
+    path('api/', include(router.urls)),
 ]
