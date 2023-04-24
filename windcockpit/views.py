@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template import loader
 from rest_framework import viewsets
 from rest_framework import permissions
 from windcockpit.models import Session
@@ -11,8 +12,11 @@ def index(request):
 
 def sessions(request):
     latest_session_list = Session.objects.order_by("-date")[:5]
-    output = ", ".join([s.__str__() for s in latest_session_list])
-    return HttpResponse(output)
+    template = loader.get_template("windcockpit/sessions.html")
+    context = {
+        "latest_session_list": latest_session_list
+    }
+    return HttpResponse(template.render(context, request))
 
 
 def session(request, session_id):

@@ -8,7 +8,7 @@ router.register(r'sessions', views.SessionViewSet)
 urlpatterns = [
     path("", views.index, name="index"),
     path("sessions/", views.sessions, name="sessions"),
-    path("session/<int:session_id>/", views.session, name="session"),
+    path("sessions/<int:session_id>/", views.session, name="session"),
 
     path('api/', include(router.urls)),
 ]
