@@ -5,6 +5,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'sessions', views.SessionViewSet)
 
+app_name = "windcockpit"
 urlpatterns = [
     path("", views.index, name="index"),
     path("sessions/", views.sessions, name="sessions"),

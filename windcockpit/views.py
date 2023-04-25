@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import permissions
 from windcockpit.models import Session
@@ -12,15 +12,14 @@ def index(request):
 
 def sessions(request):
     latest_session_list = Session.objects.order_by("-date")[:5]
-    template = loader.get_template("windcockpit/sessions.html")
-    context = {
+    return render(request, "windcockpit/sessions.html", {
         "latest_session_list": latest_session_list
-    }
-    return HttpResponse(template.render(context, request))
+    })
 
 
 def session(request, session_id):
-    return HttpResponse("You're looking at session %s" % session_id)
+    s = get_object_or_404(Session, pk=session_id)
+    return render(request, "windcockpit/session.html", {"session": s})
 
 
 class SessionViewSet(viewsets.ModelViewSet):

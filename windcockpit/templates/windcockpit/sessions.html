@@ -1,7 +1,7 @@
 {% if latest_session_list %}
     <ul>
         {% for session in latest_session_list %}
-            <li><a href="/session/{{ session.id }}/">{{ session }}</a></li>
+            <li><a href="{% url 'windcockpit:session' session.id %}">{{ session }}</a></li>
         {% endfor %}
     </ul>
 {% else %}
