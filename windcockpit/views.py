@@ -1,7 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import permissions
+
+from windcockpit.forms import SessionForm
 from windcockpit.models import Session
 from windcockpit.serializiers import SessionSerializer
 
@@ -18,8 +20,16 @@ def sessions(request):
 
 
 def session(request, session_id):
-    s = get_object_or_404(Session, pk=session_id)
-    return render(request, "windcockpit/session.html", {"session": s})
+    if request.method == "POST":
+        return HttpResponseRedirect("/wp/sessions/")
+    else:
+        s = get_object_or_404(Session, pk=session_id)
+        form = SessionForm(instance=s)
+        return render(request, "windcockpit/session.html", {"form": form})
+
+
+def update_session(request):
+    return None
 
 
 class SessionViewSet(viewsets.ModelViewSet):

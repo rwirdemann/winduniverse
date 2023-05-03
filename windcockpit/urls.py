@@ -10,6 +10,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("sessions/", views.sessions, name="sessions"),
     path("sessions/<int:session_id>/", views.session, name="session"),
+    path("sessions/<int:session_id>/", views.update_session, name="update_session"),
 
     path('api/', include(router.urls)),
 ]
