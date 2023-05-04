@@ -1,7 +1,12 @@
+<h1>Sessions</h1>
 {% if latest_session_list %}
     <ul>
         {% for session in latest_session_list %}
-            <li><a href="{% url 'windcockpit:session' session.id %}">{{ session }}</a></li>
+            <li>
+                <a href="{% url 'windcockpit:session' session.id %}">
+                    {{ session.date |date:'Y-m-d H:i' }}: {{ session.sport }} in {{ session.spot.name }}
+                </a>
+            </li>
         {% endfor %}
     </ul>
 {% else %}

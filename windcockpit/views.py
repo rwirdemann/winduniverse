@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework import viewsets
 from rest_framework import permissions
 
@@ -13,23 +13,23 @@ def index(request):
 
 
 def sessions(request):
-    latest_session_list = Session.objects.order_by("-date")[:5]
+    latest_session_list = Session.objects.order_by("-date")
     return render(request, "windcockpit/sessions.html", {
         "latest_session_list": latest_session_list
     })
 
 
 def session(request, session_id):
+    s = get_object_or_404(Session, pk=session_id)
+
     if request.method == "POST":
-        return HttpResponseRedirect("/wp/sessions/")
+        form = SessionForm(request.POST, instance=s)
+        if form.is_valid():
+            form.save()
+        return redirect("windcockpit:sessions")
     else:
-        s = get_object_or_404(Session, pk=session_id)
         form = SessionForm(instance=s)
         return render(request, "windcockpit/session.html", {"form": form})
-
-
-def update_session(request):
-    return None
 
 
 class SessionViewSet(viewsets.ModelViewSet):
